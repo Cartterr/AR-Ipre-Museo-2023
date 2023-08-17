@@ -32,7 +32,11 @@
             </a-entity>
         </a-marker>
 
-        <!-- Fallback entity will be dynamically created -->
+        <!-- Model displayed when marker is not found -->
+        <a-entity id="fallbackEntity" gltf-model="#apple-model" rotation="0 0 0" scale="0.5 0.5 0.5" position="0 0.5 -6" visible="true">
+            <a-animation attribute="rotation" to="0 360 0" dur="9000" repeat="indefinite" easing="linear"></a-animation>
+            <a-animation attribute="position" direction="alternate" to="0 0 -6" dur="2000" repeat="indefinite" easing="ease-in-out"></a-animation>
+        </a-entity>
 
         <a-entity camera></a-entity>
     </a-scene>
@@ -42,46 +46,13 @@
             document.getElementById('loading').style.display = 'none';
         });
 
-        function createFallbackEntity() {
-            let entity = document.createElement('a-entity');
-            entity.setAttribute('id', 'fallbackEntity');
-            entity.setAttribute('gltf-model', '#apple-model');
-            entity.setAttribute('rotation', '0 0 0');
-            entity.setAttribute('scale', '0.5 0.5 0.5');
-            entity.setAttribute('position', '0 0.5 -6');
-
-            let rotationAnim = document.createElement('a-animation');
-            rotationAnim.setAttribute('attribute', 'rotation');
-            rotationAnim.setAttribute('to', '0 360 0');
-            rotationAnim.setAttribute('dur', '9000');
-            rotationAnim.setAttribute('repeat', 'indefinite');
-            rotationAnim.setAttribute('easing', 'linear');
-            entity.appendChild(rotationAnim);
-
-            let positionAnim = document.createElement('a-animation');
-            positionAnim.setAttribute('attribute', 'position');
-            positionAnim.setAttribute('direction', 'alternate');
-            positionAnim.setAttribute('to', '0 0 -6');
-            positionAnim.setAttribute('dur', '2000');
-            positionAnim.setAttribute('repeat', 'indefinite');
-            positionAnim.setAttribute('easing', 'ease-in-out');
-            entity.appendChild(positionAnim);
-
-            document.querySelector('a-scene').appendChild(entity);
-        }
-
         document.querySelector('a-marker').addEventListener('markerFound', function() {
-            let entity = document.getElementById('fallbackEntity');
-            if (entity) entity.remove();
+            document.getElementById('fallbackEntity').setAttribute('visible', false);
         });
 
         document.querySelector('a-marker').addEventListener('markerLost', function() {
-            createFallbackEntity();
+            document.getElementById('fallbackEntity').setAttribute('visible', true);
         });
-
-        // Initially create the fallback entity
-        createFallbackEntity();
-
     </script>
 
 </body>
