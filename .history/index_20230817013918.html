@@ -33,9 +33,9 @@
         </a-marker>
 
         <!-- Model displayed when marker is not found -->
-        <a-entity id="fallbackEntity" gltf-model="#apple-model" rotation="0 0 0" scale="0.5 0.5 0.5" position="0 0.5 -6" visible="true">
+        <a-entity id="fallbackEntity" gltf-model="#apple-model" rotation="0 0 0" scale="1 1 1" position="2 -1.5 -6" visible="true">
             <a-animation attribute="rotation" to="0 360 0" dur="9000" repeat="indefinite" easing="linear"></a-animation>
-            <a-animation attribute="position" direction="alternate" to="0 0 -6" dur="2000" repeat="indefinite" easing="ease-in-out"></a-animation>
+            <a-animation attribute="position" direction="alternate" to="2 -1.5 -6" dur="2000" repeat="indefinite" easing="ease-in-out"></a-animation>
         </a-entity>
 
         <a-entity camera></a-entity>
