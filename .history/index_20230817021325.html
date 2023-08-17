@@ -29,7 +29,7 @@
     <div id="loading">Loading model...</div>
     
     <!-- QR Prompt -->
-    <div id="qrPrompt" style="visibility: visible;">Apunta al Código QR, Asegurate que se vean todos los bordes blancos!</div>
+    <div id="qrPrompt">Apunta al Código QR, Asegurate que se vean todos los bordes blancos!</div>
 
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;' vr-mode-ui="enabled: false">
         <a-assets>
@@ -52,19 +52,16 @@
             document.getElementById('loading').style.display = 'none';
         });
 
-        // Add event listeners once the document is fully loaded
-        window.addEventListener('load', function() {
-            var marker = document.querySelector('a-marker');
+        // Marker event listeners
+        var marker = document.querySelector('a-marker');
+        marker.addEventListener("markerFound", function() {
+            console.log("QR Detected");
+            document.getElementById('qrPrompt').style.display = 'none';
+        });
 
-            marker.addEventListener("markerFound", function() {
-                console.log("QR Detected");
-                document.getElementById('qrPrompt').style.visibility = 'hidden';
-            });
-
-            marker.addEventListener("markerLost", function() {
-                console.log("QR Lost");
-                document.getElementById('qrPrompt').style.visibility = 'visible';
-            });
+        marker.addEventListener("markerLost", function() {
+            console.log("QR Lost");
+            document.getElementById('qrPrompt').style.display = 'block';
         });
     </script>
 
