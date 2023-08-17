@@ -28,8 +28,8 @@
     <!-- Loading div -->
     <div id="loading">Loading model...</div>
     
-    <!-- QR Prompt with countdown timer -->
-    <div id="qrPrompt">Apunta al Código QR, Asegurate que se vean todos los bordes blancos! <br> Disappearing in <span id="countdown">6</span> seconds...</div>
+    <!-- QR Prompt -->
+    <div id="qrPrompt" style="visibility: visible;">Apunta al Código QR, Asegurate que se vean todos los bordes blancos!</div>
 
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;' vr-mode-ui="enabled: false">
         <a-assets>
@@ -52,16 +52,10 @@
             document.getElementById('loading').style.display = 'none';
         });
 
-        // Countdown timer to hide QR Prompt div
-        let countdown = 6;
-        let countdownInterval = setInterval(function() {
-            countdown--;
-            document.getElementById('countdown').innerText = countdown;
-            if (countdown === 0) {
-                clearInterval(countdownInterval);
-                document.getElementById('qrPrompt').style.display = 'none';
-            }
-        }, 1000);
+        // Hide the QR Prompt after 6 seconds
+        setTimeout(function() {
+            document.getElementById('qrPrompt').style.visibility = 'hidden';
+        }, 6000);
     </script>
 
 </body>
